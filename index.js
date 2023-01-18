@@ -29,6 +29,7 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
 // console.log(rutaAbsoluta);
 
 // Es formato md?
+//
 
 module.exports = {
   mdLinks,
