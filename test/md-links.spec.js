@@ -1,6 +1,8 @@
-const { mdLinks } = require('../index.js');
+// const { pathExist } = require('../index.js');
+const { mdLinks } = require('..');
+const { pathExist } = require('../func');
 
-describe('mdLinks', () => {
+describe('pathExist', () => {
   it('deberia ser una funcion', () => {
     console.log('FIX ME!');
   });

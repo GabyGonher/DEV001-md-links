@@ -1,18 +1,34 @@
 const fs = require('fs');
+const path = require('path');
+const { pathExist, pathAbsolute } = require('./func');
+
+// Identificar si la ruta existe
+// Si existe una ruta resolver la promesa
+// resolve('Ruta exitosa');
+// Si no existe la ruta se rechaza la promesa
 
 const mdLinks = (path, options) => new Promise((resolve, reject) => {
-  // Que cosas llenamos en nuestra funcion (ocupar llenado de flujo)
-  // Identificar si la ruta es relativa o absoluta
-  // Si la ruta existe
-  if (fs.existsSync(path)) {
-    // Chequear o convertir a una ruta absoluta (archivos vs directorios)
-    // Probar si la ruta es un archivo o directorio
-    // Si es un directorio filtrar los archivos md a un array
+  if (pathExist(pathAbsolute)) {
+    resolve('Ruta existente');
   } else {
-    // Si no existe la ruta se rechaza la promesa
     reject('La ruta no existe');
   }
 });
+// leer archivo
+// fs.readFile('prueba/ejem', 'utf-8', (error, data) => {
+//   if (error) {
+//     console.log('error numero 2')
+//   }
+//   console.log(data.toString())
+
+// });
+
+// console.log(fs.existsSync('prueba/ejemplo.md'));
+// Chequear o convertir a una ruta ABSOLUTA
+// const rutaAbsoluta = path.resolve('boing6prueba');
+// console.log(rutaAbsoluta);
+
+// Es formato md?
 
 module.exports = {
   mdLinks,
