@@ -9,9 +9,7 @@ const { pathExist } = require('./func');
 
 const mdLinks = (path, options) => new Promise((resolve, reject) => {
   if (pathExist(path)) {
-    console.log("deberia llegar aqui ")
-    resolve('Ruta existente')
-      ;
+    reject('Ruta existe');
   } else {
     reject('La ruta no existe');
   }

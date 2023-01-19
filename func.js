@@ -8,7 +8,7 @@ const pathExist = (phat) => fs.existsSync(phat);
 // console.log(pathExist);
 
 // 2.- Funcion para identificar una ruta absoluta
-const pathAbsolute = (phat) => path.isAbsolute(path);
+const pathAbsolute = (phat) => phat.isAbsolute(phat);
 
 
 // 3.- Identificar si es un archivo o directorio.
