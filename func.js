@@ -2,17 +2,14 @@ const fs = require('fs');
 const path = require('path');
 
 // 1.- Funcion para  saber si existe una ruta
-const pathExist = (filephat) => {
-  return fs.existsSync(path, 'utf8');
-};
+const pathExist = (phat) => fs.existsSync(phat);
 
 // const pathExist = (path) => fs.existsSync(path);
 // console.log(pathExist);
 
 // 2.- Funcion para identificar una ruta absoluta
-const pathAbsolute = (file) => {
-  return path.isAbsolute(file);
-};
+const pathAbsolute = (phat) => path.isAbsolute(path);
+
 
 // 3.- Identificar si es un archivo o directorio.
 // 4.- Identificar si tiene formato md.

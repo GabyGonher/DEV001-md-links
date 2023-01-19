@@ -1,6 +1,6 @@
-const fs = require('fs');
+// const fs = require('fs');
 const path = require('path');
-const { pathExist, pathAbsolute } = require('./func');
+const { pathExist } = require('./func');
 
 // Identificar si la ruta existe
 // Si existe una ruta resolver la promesa
@@ -8,12 +8,16 @@ const { pathExist, pathAbsolute } = require('./func');
 // Si no existe la ruta se rechaza la promesa
 
 const mdLinks = (path, options) => new Promise((resolve, reject) => {
-  if (pathExist(pathAbsolute)) {
-    resolve('Ruta existente');
+  if (pathExist(path)) {
+    console.log("deberia llegar aqui ")
+    resolve('Ruta existente')
+      ;
   } else {
     reject('La ruta no existe');
   }
 });
+
+
 // leer archivo
 // fs.readFile('prueba/ejem', 'utf-8', (error, data) => {
 //   if (error) {
