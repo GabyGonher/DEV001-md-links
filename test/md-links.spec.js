@@ -3,6 +3,7 @@
 const { mdLinks } = require('..');
 const { pathExist } = require('../func');
 
+// Test de ruta existente.
 describe('pathExist', () => {
   it('deberia ser una funcion', () => {
     console.log('FIX ME!');
