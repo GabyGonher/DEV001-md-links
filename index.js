@@ -1,15 +1,18 @@
 // const fs = require('fs');
-const path = require('path');
-const { pathExist } = require('./func');
+// const path = require('path');
+const { pathExist, pathAbsolute } = require('./func');
 
 // Identificar si la ruta existe
 // Si existe una ruta resolver la promesa
 // resolve('Ruta exitosa');
 // Si no existe la ruta se rechaza la promesa
 
-const mdLinks = (path, options) => new Promise((resolve, reject) => {
-  if (pathExist(path)) {
-    reject('Ruta existe');
+const mdLinks = (filePath, options) => new Promise((resolve, reject) => {
+  const rutaAbsoluta = pathAbsolute(filePath);
+  console.log(rutaAbsoluta);
+
+  if (pathExist(filePath)) {
+    reject('Ruta exitosa');
   } else {
     reject('La ruta no existe');
   }
@@ -27,8 +30,6 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
 
 // console.log(fs.existsSync('prueba/ejemplo.md'));
 // Chequear o convertir a una ruta ABSOLUTA
-// const rutaAbsoluta = path.resolve('boing6prueba');
-// console.log(rutaAbsoluta);
 
 // Es formato md?
 //
