@@ -1,6 +1,6 @@
 // const fs = require('fs');
 // const path = require('path');
-const { pathExist, pathAbsolute } = require('./func');
+const { pathExist, pathAbsolute, fileExt } = require('./func');
 
 // Identificar si la ruta existe
 // Si existe una ruta resolver la promesa
@@ -8,32 +8,54 @@ const { pathExist, pathAbsolute } = require('./func');
 // Si no existe la ruta se rechaza la promesa
 
 const mdLinks = (filePath, options) => new Promise((resolve, reject) => {
-  const rutaAbsoluta = pathAbsolute(filePath);
-  console.log(rutaAbsoluta);
-
-  if (pathExist(filePath)) {
-    reject('Ruta exitosa');
-  } else {
-    reject('La ruta no existe');
+  // const rutaAbsoluta = pathAbsolute(filePath);
+  // // console.log(rutaAbsoluta);
+  // let files;
+  console.log('inicio de recorrido');
+  if (!pathExist(filePath)) {
+    // console.log('ruta existente');
+    return reject('La ruta no existe');
   }
+  // if (!pathAbsolute(filePath)) {
+  // pathAbsolute(filePath);
+  filePath = pathAbsolute(filePath);
+  console.log(`${filePath} convertir a absoluta`);
+  if (!fileExt(filePath)) {
+    console.log('archivo md');
+    return reject(`${filePath} La ruta no contiene un archivo md`);
+  }
+  console.log('fin de recorrido');
+  return resolve([]);
 });
 
-
-// leer archivo
-// fs.readFile('prueba/ejem', 'utf-8', (error, data) => {
-//   if (error) {
-//     console.log('error numero 2')
-//   }
-//   console.log(data.toString())
-
+// if (!pathExist(filePath)) {
+//   return reject('La ruta no existe');
+// } else {
+//   const absolut = pathAbsolute(filePath);
+// }
+// if (!pathAbsolute(filePath)) {
+//   return reject('esta ruta no es absoluta');
+// }
+// if (!fileExt(filePath)) {
+//   return reject('La ruta no contiene un archivo md');
+// }
+// resolve([])
 // });
 
-// console.log(fs.existsSync('prueba/ejemplo.md'));
-// Chequear o convertir a una ruta ABSOLUTA
+// /////////////////
+// if (pathExist(filePath)) {
+//   resolve('Ruta exitosa');
+// } else {
+//   reject('La ruta no existe');
+// }
+// });
+// .then(isPath => console.log('Log de THEN: ' + isPath)
+// ).then
 
-// Es formato md?
-//
+//* if (fileExt(filePath) === true )
+// reject('Archivo .md') */
 
+// leer archivo.
 module.exports = {
   mdLinks,
 };

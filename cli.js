@@ -2,7 +2,10 @@
 // CLI = Linea de comando
 const { mdLinks } = require('./index');
 
-mdLinks('noexistemd').then(() => { })
+mdLinks('README.md')
+  .then((result) => {
+    console.log(result);
+  })
   .catch((error) => {
-    console.log(error);
-  });
+    console.error(error);
+  }); 
