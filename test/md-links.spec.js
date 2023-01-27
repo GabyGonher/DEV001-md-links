@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 // const { pathExist } = require('../index.js');
 const { mdLinks } = require('../index');
-const { pathExist, pathAbsolute, fileExt } = require('../func');
+const { pathExist, pathAbsolute, fileMd } = require('../func');
 
 // Test de ruta existente.
 describe('mdLinks', () => {
@@ -36,14 +36,14 @@ describe('pathAbsolute', () => {
 });
 
 // Test de extensión de archivo.
-describe('fileExt', () => {
+describe('fileMd', () => {
   it('deberia ser una funcion', () => {
-    expect(typeof fileExt).toBe('function');
+    expect(typeof fileMd).toBe('function');
   });
   it('Deberia devolver true si el archivo es formato md', () => {
-    expect(fileExt('prueba/ejemplo2.md')).toBe(true);
+    expect(fileMd('prueba/ejemplo2.md')).toBe(true);
   });
   it('Deberia devolver false si el archivo no es formato md', () => {
-    expect(fileExt('prueba/ejemplo2.txt')).toBe(false);
+    expect(fileMd('prueba/ejemplo2.txt')).toBe(false);
   });
 });
