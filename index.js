@@ -1,4 +1,11 @@
-const { pathExist, pathAbsolute, fileMd, readFile, getLinks, } = require('./func');
+const { readFile } = require("fs/promises");
+const { resolve } = require("path");
+const { pathExist,
+  pathAbsolute,
+  fileMd,
+  getLinks,
+  // getLinks, 
+} = require('./func');
 
 const mdLinks = (filePath, options) => new Promise((resolve, reject) => {
   // const rutaAbsoluta = pathAbsolute(filePath);
@@ -17,25 +24,21 @@ const mdLinks = (filePath, options) => new Promise((resolve, reject) => {
     console.log('Entrando a ERROR archivo md');
     return reject(`${filePath} La ruta no contiene un archivo md`);
   }
-  const arrFile = readFile(filePath))
-if (arrFile.getLinks) {
-  const arraLinks = 
-      }
-    }
+  console.log('comienza a leer el archivo');
+  let content = readFile(filePath).then(result => getLinks(result));
+  resolve(content);
+  // console.log(result);
 
 
+  //  let links = getLinks(content, filePath);
 
-  // desde aca.
-
-  // desde aqui es lo nuevo -- If que lee el arreglo y aplica la extracción de links
-
-  // (!fileMd(resultAbsolut) ? reject(`${filePath} La ruta no contiene un archivo md`) : filePath = [mdPath]); //duda de si se cambia el parametro filepath vs resultadoAbsolut
-
-
-  //   console.log('fin de recorrido');
-  //   // return resolve(readFile['']);
+  // console.log(getLinks);
+  console.log(content);
+  // return resolve(links);
+  // // return resolve(readFile['']);
 });
-
+console.log(mdLinks);
+//   console.log('fin de recorrido');
 module.exports = {
   mdLinks,
-}
+};

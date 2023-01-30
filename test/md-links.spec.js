@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 // const { pathExist } = require('../index.js');
 const { mdLinks } = require('../index');
-const { pathExist, pathAbsolute, fileMd } = require('../func');
+const { pathExist, pathAbsolute, fileMd, readFile, getLinks } = require('../func');
 
 // Test de ruta existente.
 describe('mdLinks', () => {
@@ -45,5 +45,27 @@ describe('fileMd', () => {
   });
   it('Deberia devolver false si el archivo no es formato md', () => {
     expect(fileMd('prueba/ejemplo2.txt')).toBe(false);
+  });
+});
+
+// Test de traer links en un array.
+describe('getLinks', () => {
+  it('Deberia ser una función', () => {
+    expect(typeof getLinks).toBe('function');
+  });
+  it('Deberia devolver un array con links', () => {
+    expect(getLinks('C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md')).toEqual([{
+      href: 'https://es.wikipedia.org/wiki/Markdown',
+      text: 'Markdown1',
+      file: 'C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md'
+    }]);
+  });
+
+});
+
+// Test de READ
+describe('readFile', () => {
+  it('Deberia ser una función', () => {
+    expect(typeof readFile).toBe('function');
   });
 });

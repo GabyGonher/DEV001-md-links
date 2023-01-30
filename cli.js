@@ -2,9 +2,9 @@
 // CLI = Linea de comando
 const { mdLinks } = require('./index');
 
-mdLinks('prueba/ejemplo2.md')
+mdLinks('prueba/ejemplo3.md')
   .then((result) => {
-    console.log(result);
+    // console.log(result)
   })
   .catch((error) => {
     console.error(error);

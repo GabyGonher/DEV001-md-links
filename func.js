@@ -1,8 +1,9 @@
+const { log } = require('console');
 const fs = require('fs');
 const { resolve } = require('path');
 const path = require('path');
+// const fsPromises = require('fs/promises');
 // const promises = require('node:fs/promises');
-
 // 1.- Funcion para  saber si existe una ruta
 const pathExist = (filePath) => fs.existsSync(filePath);
 
@@ -21,47 +22,52 @@ const fileMd = (filePath) => path.extname(filePath) === '.md';
 // const fileMd = (filePath) => (
 // path.extname(filePath) === '.md' ? []
 // )
-// 5.- Leer el archivo del arreglo si es formato md
-const readFile = (filePath) => {
-  const contentFile = [];
-  fs.readFile(filePath, (error, lineRead) => {
-    if (error) {
-      throw new Error('error al leer archivo');
-    } else {
-      contentFile.push(lineRead);
-      // getLinks(lineRead, filePath);
-    }
-    return contentFile;
-  });
-};
-readFile('C://Users//admin//Desktop//DEV001-md-links//README.md', 'READFILE');
 
-// 6.- traer los links a un array.
 
-const getLinks = (currentLine, filePath) => {
-  console.log(currentLine);
+// 5.- traer los links a un array.
+
+const getLinks = (doc, filePath) => {
+  // console.log(doc);
   const arrLinks = [];
   const regex = /(\[(.*?)\])(\((.*?)\))/gim;
-  let match = regex.exec(currentLine); // resultado de documentos md como parametro
-  for (let i = 0; i < currentLine.length; i++) {
-    if (match !== null) {
-      arrLinks.push({
-        href: match[4],
-        text: match[2],
-        file: filePath,
-      });
-      match = regex.exec(currentLine);
-    }
+  let match;
+  while ((match = regex.exec(doc)) !== null) {
+    arrLinks.push({
+      href: match[4],
+      text: match[2],
+      file: filePath,
+
+
+    });
   }
-  console.log(arrLinks);
+  // console.log(arrLinks);
   return arrLinks;
 };
 
-// DESDE AQUI PARA ABAJO
-// getLinks('C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo2.md');
+// 4 .- Leer el archivo del arreglo si es formato md
+const readFile = (filePath) => {
+  const contentFile = [];
+  fs.readFile(filePath, 'utf8', (error, lineRead) => {
+    if (error) {
+      throw new Error('error al leer archivo');
+    } else {
+      // contentFile.push(lineRead);
+      getLinks(lineRead, filePath);
+    }
+    // return getLinks;
+    return contentFile;
+  });
+};
 
-// const getLinks =
-// console.log(readFile('C://Users//admin//Desktop//DEV001-md-links//README.md'));
+// 6.- Validar Links;
+const validateLinks = (arrLinks) => { }
+
+
+
+
+
+// console.log('Funcion REad');
+readFile('C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md');
 
 module.exports = {
   pathExist,
