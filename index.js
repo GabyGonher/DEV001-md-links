@@ -1,13 +1,13 @@
-const { readFile } = require("fs/promises");
+//const { readFile } = require("fs/promises");
 const { resolve } = require("path");
 const { pathExist,
   pathAbsolute,
   fileMd,
-  getLinks,
-  // getLinks, 
+  readFile,
 } = require('./func');
 
 const mdLinks = (filePath, options) => new Promise((resolve, reject) => {
+  console.log(filePath)
   // const rutaAbsoluta = pathAbsolute(filePath);
   // // console.log(rutaAbsoluta);
   let absolute = [];
@@ -25,8 +25,10 @@ const mdLinks = (filePath, options) => new Promise((resolve, reject) => {
     return reject(`${filePath} La ruta no contiene un archivo md`);
   }
   console.log('comienza a leer el archivo');
-  let content = readFile(filePath).then(result => getLinks(result));
-  resolve(content);
+  resolve(readFile(filePath))
+  /*   return
+    let content = readFile(filePath).then(result => getLinks(result));
+    resolve(content); */
   // console.log(result);
 
 
@@ -37,7 +39,7 @@ const mdLinks = (filePath, options) => new Promise((resolve, reject) => {
   // return resolve(links);
   // // return resolve(readFile['']);
 });
-console.log(mdLinks);
+
 //   console.log('fin de recorrido');
 module.exports = {
   mdLinks,

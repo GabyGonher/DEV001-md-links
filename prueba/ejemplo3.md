@@ -3,3 +3,8 @@ EJEMPLO
 [Markdown2](https://es.wikipedia.org/wiki/Markdown)
 [Markdown3](https://es.wikipedia.org/wiki/Markdown)
 [Markdown4](https://es.wikipedia.org/wiki/Markdown)
+FAIL
+[linkFail1](https://otra-cosa.net/algun-doc.htmlfail404)
+[linkFail2](https://otra-cosa.net/algun-doc.htmlfail404)
+[linkFail3](https://otra-cosa.net/algun-doc.htmlfail404)
+[linkFail4](https://otra-cosa.net/algun-doc.htmlfail404)

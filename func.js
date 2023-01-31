@@ -1,3 +1,4 @@
+const { rejects } = require('assert');
 const { log } = require('console');
 const fs = require('fs');
 const { resolve } = require('path');
@@ -47,27 +48,65 @@ const getLinks = (doc, filePath) => {
 // 4 .- Leer el archivo del arreglo si es formato md
 const readFile = (filePath) => {
   const contentFile = [];
-  fs.readFile(filePath, 'utf8', (error, lineRead) => {
-    if (error) {
-      throw new Error('error al leer archivo');
-    } else {
-      // contentFile.push(lineRead);
-      getLinks(lineRead, filePath);
+  return new Promise((resolvee, reject) => {
+    fs.readFile(filePath, 'utf8', (error, lineRead) => {
+      if (error) {
+        reject('Error al leer archivo');
+      } else {
+        resolvee(getLinks(lineRead, filePath))
+      }
     }
-    // return getLinks;
-    return contentFile;
-  });
+    )
+    // return
+    // fs.readFile(filePath, 'utf8', (error, lineRead) => {
+    //   if (error) {
+    //     throw new Error('error al leer archivo');
+    //   } else {
+    //     //contentFile.push(lineRead);
+    //     return new Promise((resolve) => {
+    //       resolve(getLinks(lineRead, filePath))
+    //     })
+    //   }
+    //   // return getLinks;
+    //   //return contentFile;
+    // });
+  })
 };
 
 // 6.- Validar Links;
-const validateLinks = (arrLinks) => { }
+// const validateLinks = (arrLinks, filePath) => {
+//   const promesas = [];
+//   const exp = /(\[(.*?)\])(\((.*?)\))/gim;
+//   let valid = exp.exec(arrLinks);
+//   for (let i = 0; i < arrLinks.length; i++) {
+//     if (valid !== null) {
+//       let validated = valid;
+//       promesas.push(fetch(valid[4]).then((response) => {
+//         return {
+//           href: validated[4],
+//           text: validated[2],
+//           file: filePath,
+//           status: response.status
+//           // ok:(response.ok) ? 'ok' : 'fail',
+//         }
+//       }))
+//       valid = exp.exec(arrLinks);
+//       console.log(valid, 'valida links');
+//     }
+//   }
+//   return Promise.all(promises);
+// };
 
 
-
-
-
-// console.log('Funcion REad');
-readFile('C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md');
+// const validateRead = (filePath) => fs.readFile(filePath, 'utf8')
+// if (error) {
+//   reject('Error al leer archivo');
+// } else {
+//   resolvee(validateLinks(arrLinks, filePath));
+// };
+// console.log(validateRead, 'fun leer y validar ');
+// // console.log('Funcion REad');
+// readFile('C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md');
 
 module.exports = {
   pathExist,
