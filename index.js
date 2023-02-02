@@ -1,4 +1,5 @@
 //const { readFile } = require("fs/promises");
+
 const { resolve } = require("path");
 const { pathExist,
   pathAbsolute,
@@ -14,11 +15,13 @@ const mdLinks = (filePath, options) => new Promise((resolve, reject) => {
   // let resultAbsolut = '';
   console.log('inicio de recorrido');
   if (!pathExist(filePath)) {
-    // console.log('ruta existente');
+    console.log('ruta que se le pasa');
     return reject('La ruta no existe');
   } else {
+    // `Ruta existente`;
     absolute = pathAbsolute(filePath);
-    console.log(`${filePath} convertir a absoluta`);
+    console.log(filePath, 'ruta absoluta')
+    // console.log(`${filePath} convertir a absoluta`);
   }
   if (!fileMd(filePath)) {
     console.log('Entrando a ERROR archivo md');
@@ -26,13 +29,14 @@ const mdLinks = (filePath, options) => new Promise((resolve, reject) => {
   }
   console.log('comienza a leer el archivo');
   resolve(readFile(filePath))
-  /*   return
-    let content = readFile(filePath).then(result => getLinks(result));
-    resolve(content); */
+
+  // return
+  // let content = readFile(filePath).then(result => getLinks(result));
+  // resolve(content); * /
   // console.log(result);
 
 
-  //  let links = getLinks(content, filePath);
+  let links = getLinks(content, filePath);
 
   // console.log(getLinks);
   console.log(content);

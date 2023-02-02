@@ -2,7 +2,7 @@
 // CLI = Linea de comando
 const { mdLinks } = require('./index');
 
-mdLinks('prueba/ejemplo3.md')
+mdLinks('C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md')
   .then((result) => {
     console.log(result)
   })
@@ -10,3 +10,5 @@ mdLinks('prueba/ejemplo3.md')
     console.error(error);
   });
 // 'prueba/ejemplo.txt'
+// 'README.md'
+// 'C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md'
