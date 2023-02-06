@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const { mdLinks } = require('../index');
-const { pathExist, pathAbsolute, fileMd, getLinks, readFile } = require('../func');
+const { pathExist, pathAbsolute, fileMd, getLinks, readFile, getStatus } = require('../func');
 
 
 
@@ -82,8 +82,6 @@ describe('getLinks', () => {
   });
 });
 
-// saber que entra y que sale de la función
-
 // Test de READ
 describe('readFile', () => {
   it('Deberia ser una función', () => {
@@ -94,13 +92,27 @@ describe('readFile', () => {
     })
       .catch((error) => 'error');
   });
-  // it("Deberia devolver una promesa", () => {
-  //   return readFile(
-  //     "C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md"
-  //   )
-  //     .then(() => {
-  //       expect(readFile).toBe(typeof Promise);
-  //     })
-  //     .catch((error) => { error });
-  // });
+  it("Deberia devolver una promesa", () => {
+    return readFile(
+      "C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md"
+    )
+      .then(() => {
+        expect(readFile).toBe(typeof Promise);
+      })
+      .catch((error) => { error });
+  });
+});
+
+
+// Test de getStatus
+
+describe('getStatus', () => {
+  it('Deberia ser una función', () => {
+    expect(typeof getStatus).toBe('function');
+  });
+  it('Deberia traer el status y message de cada link', () => {
+    getStatus([]).then(([]) => {
+    })
+      .catch((error) => 'error');
+  });
 });

@@ -1,31 +1,20 @@
 /* eslint-disable no-undef */
-const { rejects } = require('assert');
-// const { log } = require('console');
+// const { rejects } = require('assert');
 const fs = require('fs');
+const { readFile } = require('fs/promises');
 const { resolve } = require('path');
 const path = require('path');
-// const { fetch } = require('node-fetch');
 const axios = require('axios');
-const { mdLinks } = require('.');
 
 // 1.- Funcion para  saber si existe una ruta
 const pathExist = (filePath) => fs.existsSync(filePath);
 
 // 2.- Funcion para identificar una ruta absoluta
 const pathAbsolute = (filePath) => (
-  path.isAbsolute(filePath) ? filePath : path.resolve(filePath)
-);
-// console.log(pathAbsolute('jemplo2'));
+  path.isAbsolute(filePath) ? filePath : path.resolve(filePath));
 
 // 3.- Identificar si es un archivo formato md en caso de ser directorio error
 const fileMd = (filePath) => path.extname(filePath) === '.md';
-// console.log('HASTA AQUI 1')
-// console.log(fileMd('prueba/ejemplo2.md'));
-// console.log('HASTA AQUI 2')
-
-// const fileMd = (filePath) => (
-// path.extname(filePath) === '.md' ? []
-// )
 
 
 // 5.- traer los links a un array.
@@ -42,8 +31,9 @@ const getLinks = (doc, filePath) => {
       file: filePath,
     });
   }
+  // resolve(getStatus(arrLinks));
   // console.log(arrLinks);
-  // return arrLinks;
+  return arrLinks;
 };
 // ////////////////////////777
 // let arrLinks = [
@@ -65,84 +55,52 @@ const getLinks = (doc, filePath) => {
 // ];
 
 
-// Options: si options validate es = false ejecuta 
+// Options: si options validate es = false ejecuta.
 // 6. - Validar Links;
 // pasar por cada uno de los links y aplicar esto
 // Extraer links de array que contengan las caracteristicas de status y ok en un arr nuevo
 // Axios  hace la petición a mis urls para ver si su contenido es correcto
 // La función debe retornar una promesa que resuelva a un arreglo  de objetos
 
-const validateLinks = (arrLinks) => Promise.all(arrLinks.map((link) => axios.get(link.href)
+const getStatus = (arrLinks) => Promise.all(arrLinks.map((link) => axios.get(link.href)
   .then((respuesta) => {
-    // const { status } = respuesta;
-    console.log(respuesta.status);
     return { ...link, status: respuesta.status, message: 'ok' };
   })
   .catch((error) => {
-    console.log(error);
-    // console.log(link.href, error.response.status);
     return { ...link, status: error.response.status, message: 'fail' };
-  })));
-validateLinks(arrLinks).then((resolve) => console.log((resolve)));
+  })
 
+));
+// console.log(getStatus);
+
+// getStatus(arrLinks).then((resolve) => console.log((resolve)));
 
 // ////////////////////////////////////////////////////////////
-
-
-// //////////////////////////////////////////
-// const validateLinks = (arrLinks) => {
-//   const arrProm = [];
-//   const exp = /(\[(.*?)\])(\((.*?)\))/gim;
-//   let valid = exp.exec(arr);
-//   for (let i = 0; i < arr.length; i++) {
-//     if (valid !== null) {
-//       let validated = valid;
-//       arrProm.push(axios.get(valid[4]).then((response) => {
-//         return {
-//           href: validated[4],
-//           text: validated[2],
-//           file: filePath,
-//           status: response.status,
-//           ok: (response.ok) ? 'ok' : 'fail',
-//         }
-//       }))
-//       valid = exp.exec(arr);
-//       console.log(valid, 'valida links');
-//     }
-//   }
-//   // return valid;
-//   return Promise.all(promises);
-// };
-// readFile('C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md');
-// ////////////////////////////////////////
-
-// 
-
-
-
+// /////////////////////////////////////////////////////////////
 // 4 .- Leer el archivo del arreglo si es formato md
-const readFile = (filePath) => {
-  const contentFile = [];
+const leerArchivo = (filePath) => {
+  // const contentFile = [];
   return new Promise((resolvee, reject) => {
-    fs.readFile(filePath, 'utf8', (error, arr) => {
-      if (error) {
+    // fs.readFile(filePath, 'utf8', (error, arr) => {
+    readFile(filePath, 'utf8').then((contentFile) => {
+
+      // console.log(contentFile);
+      // resolvee(getLinks(contentFile, filePath));
+      resolvee(contentFile);
+    })
+      .catch(error => {
         reject('Error al leer archivo');
-      } else {
-        // resolvee(validateLinks(arr, filePath));
-        resolvee(getLinks(arr, filePath));
-      }
-    });
+      });
   });
 };
-// const filePath = 'C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md';
-readFile('C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md');
-// console.log(filePath);
+// readFile('C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md');
 
 module.exports = {
   pathExist,
   pathAbsolute,
   fileMd,
-  readFile,
+  leerArchivo,
   getLinks,
+  getStatus,
 
 };

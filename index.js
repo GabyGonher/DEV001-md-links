@@ -1,50 +1,55 @@
-//const { readFile } = require("fs/promises");
+// const { readFile } = require("fs/promises");
 
-const { resolve } = require("path");
-const { pathExist,
-  pathAbsolute,
-  fileMd,
-  readFile,
-} = require('./func');
+// const { get } = require('http');
+const { resolve } = require('path');
+const { pathExist, pathAbsolute, fileMd, leerArchivo, getStatus, getLinks } = require('./func');
 
-const mdLinks = (filePath, options) => new Promise((resolve, reject) => {
-  console.log(filePath)
-  // const rutaAbsoluta = pathAbsolute(filePath);
-  // // console.log(rutaAbsoluta);
-  let absolute = [];
-  // let resultAbsolut = '';
+const mdLinks = (filePath, options = false) => new Promise((resolve, reject) => {
   console.log('inicio de recorrido');
   if (!pathExist(filePath)) {
-    console.log('ruta que se le pasa');
     return reject('La ruta no existe');
-  } else {
-    // `Ruta existente`;
-    absolute = pathAbsolute(filePath);
-    console.log(filePath, 'ruta absoluta')
-    // console.log(`${filePath} convertir a absoluta`);
   }
-  if (!fileMd(filePath)) {
-    console.log('Entrando a ERROR archivo md');
-    return reject(`${filePath} La ruta no contiene un archivo md`);
+  const absolute = pathAbsolute(filePath);
+  if (!fileMd(absolute)) {
+    return reject('El archivo no es MD');
   }
-  console.log('comienza a leer el archivo');
-  resolve(readFile(filePath))
+  console.log('entra a leer el archivo');
+  const resultLeerArchivo = leerArchivo(absolute);
+  return Promise.all([resultLeerArchivo.then(content => {
+    console.log(content);
+    if (options === true) {
+      console.log('arroja los links');
+      return resolve(getLinks(content, absolute));
 
-  // return
-  // let content = readFile(filePath).then(result => getLinks(result));
-  // resolve(content); * /
-  // console.log(result);
+    } if (options === false) {
+      console.log('validate');
+      Promise.all(getStatus(absolute));
+    }
+  })]);
 
-
-  let links = getLinks(content, filePath);
-
-  // console.log(getLinks);
-  console.log(content);
-  // return resolve(links);
-  // // return resolve(readFile['']);
 });
+// --------------------- R E S U L T A D O S-------------------------------------------
 
-//   console.log('fin de recorrido');
+// Permite conocer el NUMERO TOTAL de links
+const totalLinks = (arrLinks) => {
+  const total = arrLinks.length;
+  return total;
+};
+
+// Permite saber NUMERO DE LINK UNICOS
+const unique = (arrLinks) => {
+  const unicos = new Set(arrLinks.map((link) => link.href)).size;
+  return unicos;
+};
+// permite saber NUMERO DE LINKS ROTOS
+const brokenStats = (arrLinks) => {
+  const broken = arrLinks.filter((link) => link.message === 'fail');
+  return broken.length;
+};
+// ------------------------------------------------------------------------------------
 module.exports = {
   mdLinks,
+  totalLinks,
+  unique,
+  brokenStats,
 };
