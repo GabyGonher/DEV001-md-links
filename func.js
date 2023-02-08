@@ -1,8 +1,6 @@
 /* eslint-disable no-undef */
-// const { rejects } = require('assert');
 const fs = require('fs');
 const { readFile } = require('fs/promises');
-const { resolve } = require('path');
 const path = require('path');
 const axios = require('axios');
 
@@ -35,32 +33,16 @@ const getLinks = (doc, filePath) => {
   // console.log(arrLinks);
   return arrLinks;
 };
-// ////////////////////////777
-// let arrLinks = [
-//   {
-//     href: 'https://es.wikipedia.org/wiki/Markdown',
-//     text: 'Markdown1',
-//     file: 'C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md',
-//   },
-//   {
-//     href: 'https://es.wikipedia.org/wiki/Markdown',
-//     text: 'Markdown2',
-//     file: 'C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md',
-//   },
-//   {
-//     href: 'https://es.wikipedia.org/wiki/Markzgfz',
-//     text: 'Markdown3',
-//     file: 'C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md',
-//   },
-// ];
 
 
-// Options: si options validate es = false ejecuta.
 // 6. - Validar Links;
+
+
 // pasar por cada uno de los links y aplicar esto
 // Extraer links de array que contengan las caracteristicas de status y ok en un arr nuevo
 // Axios  hace la petición a mis urls para ver si su contenido es correcto
 // La función debe retornar una promesa que resuelva a un arreglo  de objetos
+
 
 const getStatus = (arrLinks) => Promise.all(arrLinks.map((link) => axios.get(link.href)
   .then((respuesta) => {
@@ -71,11 +53,41 @@ const getStatus = (arrLinks) => Promise.all(arrLinks.map((link) => axios.get(lin
   })
 
 ));
-// console.log(getStatus);
 
-// getStatus(arrLinks).then((resolve) => console.log((resolve)));
+// const getStatus = arrLinks.map(link => {
+//   return axios.get(link.href).then(linkrespuesta => {
+//     return { ...link, status: respuesta.status, ok: linkrespuesta.statusText }
+//   });
+// Promise.all(getStatus).then(resultado => console.log(resultado));
+
+// //////////////////////////////////////////////////////////
+// const arrLinks = [
+//   {
+//     href: 'https://es.wikipedia.org/wiki/Markdown',
+//     text: 'Markdown',
+//     file: 'C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo2.md',
+//     status: 200,
+//     message: 'ok',
+//   },
+//   {
+//     href: 'https://nodejs.org/',
+//     text: 'Node.js',
+//     file: 'C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo2.md',
+//     status: 200,
+//     message: 'ok',
+//   },
+// ];
 
 // ////////////////////////////////////////////////////////////
+
+
+
+// });
+// console.log(linkrespuesta);
+// Promise.all(getStatus).then(resultado => console.log(resultado));
+// console.log(getStatus(arrLinks));
+
+
 // /////////////////////////////////////////////////////////////
 // 4 .- Leer el archivo del arreglo si es formato md
 const leerArchivo = (filePath) => {
@@ -87,13 +99,37 @@ const leerArchivo = (filePath) => {
       // console.log(contentFile);
       // resolvee(getLinks(contentFile, filePath));
       resolvee(contentFile);
+      // console.log(contentFile, 'funciones');
     })
       .catch(error => {
-        reject('Error al leer archivo');
+        reject(error, 'Error al leer archivo');
       });
   });
 };
-// readFile('C:/Users/admin/Desktop/DEV001-md-links/prueba/ejemplo3.md');
+
+// Permite conocer el NUMERO TOTAL de links
+const totalLinks = (links) => {
+  const total = links.length;
+  return total;
+};
+// console.log('total links');
+// console.log(totalLinks(arrLinks));
+
+// Permite saber NUMERO DE LINK UNICOS
+const unique = (links) => {
+  const unicos = [...new Set(links.map((link) => link.href))];
+  return unicos.length;
+};
+// console.log('links unicos');
+// console.log(unique(arrLinks));
+// permite saber NUMERO DE LINKS ROTOS
+const brokenStats = (links) => {
+  const broken = links.filter((link) => link.message === 'fail');
+  return broken.length;
+};
+// console.log('links rotos');
+// console.log(brokenStats(arrLinks));
+// ------------------------------------------------------------------------------------
 
 module.exports = {
   pathExist,
@@ -101,6 +137,9 @@ module.exports = {
   fileMd,
   leerArchivo,
   getLinks,
+  totalLinks,
+  unique,
+  brokenStats,
   getStatus,
 
 };
