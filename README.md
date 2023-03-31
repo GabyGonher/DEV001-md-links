@@ -28,11 +28,11 @@ Este proyecto consiste en desarrollar una herramienta de linea de comando que no
 en formato _Markdown_, para verificar los links que contengan y reportar algunas estadísticas.
 
 ## 3. Diseño del proyecto
-ara el diseño de este proyecto fue necesario el desarrollo de un diagrama de flujo que contribuyo a comprender y plasmar el código necesario que permitió el funcionamiento.
+Para el diseño de este proyecto fue necesario el desarrollo de un diagrama de flujo que contribuyo a comprender y plasmar el código necesario que permitió el funcionamiento.
 ![diagrama de flujo](https://user-images.githubusercontent.com/114185794/218779747-54cd7e91-f02d-4fe6-b426-fd584dcc67c7.png)
 
 
-La funcion principal md-Links cuenta con dos argumentos, path y options los cuales se conforman de la siguiente manera:
+La funcion principal md-Links cuenta con dos argumentos, path (ruta) y options (opciones) se conforman de la siguiente manera:
 
 ##### Argumentos
 
@@ -78,7 +78,7 @@ siguiente interfaz:
 El ejecutable de nuestra aplicación debe poder ejecutarse de la siguiente
 manera a través de la **terminal**:
 
-`md-links <path-to-file> [options]`
+`npm i gabygonher-md-links`
 
 Por ejemplo:
 
