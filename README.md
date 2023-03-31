@@ -24,12 +24,18 @@ muchas veces están rotos o ya no son válidos y eso perjudica mucho el valor de
 la información que se quiere compartir.
 
 ## 2. Objetivo del proyecto
-Este proyecto consiste en desarrollar una herramienta de linea de comando que nos permitirá leer y analizar archivos
-en formato _Markdown_, para verificar los links que contengan y reportar algunas estadísticas.
+Este proyecto consiste en desarrollar una herramienta de linea de comando que nos permita leer y analizar archivos en formato _Markdown_, para verificar los links que contengan y reportar algunas estadísticas como son:
+- Número total de links encontrados
+- Número de links rotos
+- Número de links únicos
 
 ## 3. Diseño del proyecto
-Para el diseño de este proyecto fue necesario el desarrollo de un diagrama de flujo que contribuyo a comprender y plasmar el código necesario que permitió el funcionamiento.
-![diagrama de flujo](https://user-images.githubusercontent.com/114185794/218779747-54cd7e91-f02d-4fe6-b426-fd584dcc67c7.png)
+
+A continuación se muestra el diagrama de flujo que se empleo para el desarrollo del proyecto:
+
+![Diagrama de flujo fondo blanco](https://user-images.githubusercontent.com/114185794/229027340-c45d1432-4338-4beb-baf2-7028204d49ce.JPG)
+
+
 
 
 La funcion principal md-Links cuenta con dos argumentos, path (ruta) y options (opciones) se conforman de la siguiente manera:
@@ -48,7 +54,7 @@ La funcion principal md-Links cuenta con dos argumentos, path (ruta) y options (
 
 La función debe **retornar una promesa** (`Promise`) que **resuelva a un arreglo**
 (`Array`) de objetos (`Object`), donde cada objeto representa un link y contiene
-las siguientes propiedades
+las siguientes propiedades:
 
 Con `validate:false` :
 
@@ -67,7 +73,7 @@ Con `validate:true` :
 ## 4. Como instalar Md-Links
 ![Captura](https://user-images.githubusercontent.com/114185794/218780224-7b514613-3f0e-4b62-9999-1d8899377b17.PNG)
 
-El módulo debera ser instalado vía `npm install <github-user>/md-links`a traves de la terminal
+El módulo debera ser instalado vía ``a traves de la terminal
 El módulo debe poder **importarse** en otros scripts de Node.js y debe ofrecer la
 siguiente interfaz:
 
